@@ -1,0 +1,10 @@
+{
+  "description": "Streamline farm management with features for tracking plots, scheduling tasks, managing expenses, and generating reports, enhancing productivity for farmers.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
