@@ -2,7 +2,7 @@ import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
-
+import { VitePWA } from 'vite-plugin-pwa'
 import siteConfiguration from './.figma/make/site.json'
 
 
@@ -12,7 +12,9 @@ export default defineConfig(({ mode }) => {
   const emitSourcemaps = mode === 'development'
 
   return {
-    base: process.env.FIGMA_PUBLIC_URL ? `${process.env.FIGMA_PUBLIC_URL}/` : '/',
+   base: process.env.FIGMA_PUBLIC_URL
+  ? `${process.env.FIGMA_PUBLIC_URL}/`
+  : '/',
     build: {
       sourcemap: emitSourcemaps ? 'inline' : false,
       minify: !emitSourcemaps,
@@ -20,6 +22,20 @@ export default defineConfig(({ mode }) => {
     plugins: [
 react(),
       tailwindcss(),
+      VitePWA({
+  registerType: 'autoUpdate',
+  injectRegister: 'auto',
+  manifest: {
+    name: 'Farm Management App',
+    short_name: 'Farm App',
+    description: 'Farm Management App',
+    theme_color: '#ffffff',
+    background_color: '#ffffff',
+    display: 'standalone',
+    start_url: '/farm-management-app/',
+    scope: '/farm-management-app/',
+  },
+}),
       figmaSiteConfiguration(siteConfiguration),
       figmaErrorOverlayReplay(),
       figmaReactRefreshBoundaryFallback(),
