@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+/* ── Light tokens ───────────────────────────────────────────── */
+:root {
+  --sk-bg:       #f5faf6;
+  --sk-card:     #ffffff;
+  --sk-card2:    #f3f7f3;
+  --sk-summary:  #f7fbf8;
+  --sk-text:     #0f172a;
+  --sk-heading:  #51565b;
+  --sk-dim:      #727b77;
+  --sk-border:   #e5ebe7;
+  --sk-green:    #2d7c25;
+  --sk-green-deep: #28751f;
+  --sk-income:   #50a447;
+  --sk-orange:   #f49a1c;
+  --sk-orange-red: #e94d28;
+  --sk-lime:     #72a832;
+  --sk-green-lt: #dcfce7;
+
+  color-scheme: light;
+}
+
+/* ── Dark tokens ────────────────────────────────────────────── */
+.dark {
+  --sk-bg:       #09090b;
+  --sk-card:     #18181b;
+  --sk-card2:    #27272a;
+  --sk-summary:  #111815;
+  --sk-text:     #fafafa;
+  --sk-heading:  #e4e8e5;
+  --sk-dim:      #a1a1aa;
+  --sk-border:   #3f3f46;
+  --sk-green:    #4ade80;
+  --sk-green-deep: #165a29;
+  --sk-income:   #68c760;
+  --sk-orange:   #f6a324;
+  --sk-orange-red: #ff6845;
+  --sk-lime:     #72a832;
+  --sk-green-lt: #052e16;
+
+  color-scheme: dark;
+}
+
+* {
+  font-family: 'Noto Sans Devanagari', 'Noto Sans', system-ui, sans-serif;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--sk-bg);
+  color: var(--sk-text);
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  transition: background 0.2s, color 0.2s;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--sk-green);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--sk-border); border-radius: 4px; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade { animation: fadeIn 0.18s ease; }
+
+.modal-bg {
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.55);
+}
