@@ -11,36 +11,40 @@ export default defineConfig(({ mode }) => {
   // .figma/make/deploy-preview passes `--mode development` for cached-preview builds.
   const emitSourcemaps = mode === 'development'
 
-  return {
-   base: process.env.FIGMA_PUBLIC_URL
-  ? `${process.env.FIGMA_PUBLIC_URL}/`
-  : '/',
-    build: {
-      sourcemap: emitSourcemaps ? 'inline' : false,
-      minify: !emitSourcemaps,
-    },
-    plugins: [
-react(),
-      tailwindcss(),
-      VitePWA({
-  registerType: 'autoUpdate',
-  injectRegister: 'auto',
-  manifest: {
-    name: 'Farm Management App',
-    short_name: 'Farm App',
-    description: 'Farm Management App',
-    theme_color: '#ffffff',
-    background_color: '#ffffff',
-    display: 'standalone',
-    start_url: '/farm-management-app/',
-    scope: '/farm-management-app/',
+ return {
+  base: '/farm-management-app/',
+
+  build: {
+    sourcemap: emitSourcemaps ? 'inline' : false,
+    minify: !emitSourcemaps,
   },
-}),
-      figmaSiteConfiguration(siteConfiguration),
-      figmaErrorOverlayReplay(),
-      figmaReactRefreshBoundaryFallback(),
-      figmaMakeKitPlugin({ storiesGlob: '/src/**/*.stories.{ts,tsx,js,jsx}' }),
-    ],
+
+  plugins: [
+    react(),
+    tailwindcss(),
+
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      manifest: {
+        name: 'Farm Management App',
+        short_name: 'Farm App',
+        description: 'Farm Management App',
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
+        display: 'standalone',
+        start_url: './',
+        scope: './',
+      },
+    }),
+
+    figmaSiteConfiguration(siteConfiguration),
+    figmaErrorOverlayReplay(),
+    figmaReactRefreshBoundaryFallback(),
+    figmaMakeKitPlugin({
+      storiesGlob: '/src/**/*.stories.{ts,tsx,js,jsx}',
+    }),
+  ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
