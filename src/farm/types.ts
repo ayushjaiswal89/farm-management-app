@@ -21,5 +21,8 @@ export interface FarmRecord {
   unit: string
   note: string
   shop?: string
+
+  // Receipt
   receiptName?: string
+  receiptImage?: string
 }

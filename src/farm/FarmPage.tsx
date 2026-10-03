@@ -49,6 +49,7 @@ export function FarmPage() {
   const [farms, setFarms] = useState<Farm[]>(() => stored('sk-farms-v2', starterFarms))
   const [records, setRecords] = useState<FarmRecord[]>(() => stored('sk-records-v2', starterRecords))
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [openAddForFarm, setOpenAddForFarm] = useState<string | null>(null)
   const [editingFarm, setEditingFarm] = useState<Farm | null>(null)
   const [formOpen, setFormOpen] = useState(false)
   const [menuId, setMenuId] = useState<string | null>(null)
@@ -91,11 +92,36 @@ export function FarmPage() {
           lang={lang}
           farm={selectedFarm}
           records={records.filter((record) => record.farmId === selectedFarm.id)}
-          onBack={() => setSelectedId(null)}
-          onEditFarm={() => { setEditingFarm(selectedFarm); setFormOpen(true) }}
+          openAdd={openAddForFarm === selectedFarm.id}
+          onBack={() => {
+            setSelectedId(null)
+            setOpenAddForFarm(null)
+          }}
+          onEditFarm={() => {
+            setEditingFarm(selectedFarm)
+            setFormOpen(true)
+          }}
           onDeleteFarm={() => deleteFarm(selectedFarm.id)}
-          onSaveRecord={(record) => setRecords((current) => [record, ...current])}
-          onDeleteRecord={(id) => setRecords((current) => current.filter((record) => record.id !== id))}
+          onSaveRecord={(record) => {
+            setRecords((current) => {
+              const exists = current.some((item) => item.id === record.id)
+
+              if (exists) {
+                return current.map((item) =>
+                  item.id === record.id ? record : item
+                )
+              }
+
+              return [record, ...current]
+            })
+
+            setOpenAddForFarm(null)
+          }}
+          onDeleteRecord={(id) =>
+            setRecords((current) =>
+              current.filter((record) => record.id !== id)
+            )
+          }
         />
         {formOpen && <FarmForm lang={lang} farm={editingFarm} onSave={saveFarm} onClose={() => { setFormOpen(false); setEditingFarm(null) }} />}
       </div>
@@ -195,10 +221,14 @@ export function FarmPage() {
                       <p className="mt-0.5 text-lg font-bold text-[var(--sk-orange-red)]">{money(expense)}</p>
                     </div>
                     <button
-                      onClick={() => setSelectedId(farm.id)}
+                      onClick={() => {
+                        setOpenAddForFarm(null)
+                        setSelectedId(farm.id)
+                      }}
                       className="ml-3 flex items-center gap-1 text-base font-bold text-[var(--sk-orange)]"
                     >
-                      {t.details}<ChevronRight size={20} strokeWidth={2.6} />
+                      {t.details}
+                      <ChevronRight size={20} strokeWidth={2.6} />
                     </button>
                   </div>
                 </div>
