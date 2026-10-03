@@ -27,15 +27,28 @@ export default defineConfig(({ mode }) => {
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
-        name: 'Farm Management App',
-        short_name: 'Farm App',
-        description: 'Farm Management App',
-        theme_color: '#ffffff',
-        background_color: '#ffffff',
-        display: 'standalone',
-        start_url: './',
-        scope: './',
-      },
+  name: 'Farm Management App',
+  short_name: 'Farm App',
+  description: 'Farm Management App',
+  theme_color: '#ffffff',
+  background_color: '#ffffff',
+  display: 'standalone',
+  start_url: './',
+  scope: './',
+
+  icons: [
+    {
+      src: 'icons/pwa-192x192.png',
+      sizes: '192x192',
+      type: 'image/png',
+    },
+    {
+      src: 'icons/pwa-512x512.png',
+      sizes: '512x512',
+      type: 'image/png',
+    },
+  ],
+},
     }),
 
     figmaSiteConfiguration(siteConfiguration),
