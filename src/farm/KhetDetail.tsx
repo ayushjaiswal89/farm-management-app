@@ -6,6 +6,7 @@ import {
   CalendarDays,
   Camera,
   ChevronDown,
+  FileDown,
   FileText,
   HandCoins,
   MoreVertical,
@@ -253,22 +254,6 @@ export function KhetDetail({
           </span>
 
           <button
-            onClick={createFarmPdf}
-            disabled={creatingPdf}
-            className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm font-extrabold text-[var(--sk-green-deep)] shadow-sm disabled:opacity-60"
-          >
-            <FileText size={18} />
-
-            {creatingPdf
-              ? lang === 'hi'
-                ? 'PDF...'
-                : 'PDF...'
-              : lang === 'hi'
-                ? 'PDF बनाएं'
-                : 'PDF'}
-          </button>
-
-          <button
             aria-label="Refresh"
             className="grid size-11 place-items-center rounded-full hover:bg-white/10"
           >
@@ -362,10 +347,15 @@ export function KhetDetail({
                   {lang === 'hi' ? 'रकम' : 'Amount'}
                 </span>
 
-                <FileText
-                  size={24}
-                  className="text-[var(--sk-text)]"
-                />
+                <button
+                  type="button"
+                  onClick={createFarmPdf}
+                  disabled={creatingPdf}
+                  aria-label={lang === 'hi' ? 'PDF खोलें' : 'Open PDF'}
+                  className="grid size-10 place-items-center rounded-xl text-[var(--sk-text)] hover:bg-[var(--sk-card2)] disabled:opacity-50"
+                >
+                  <FileDown size={24} />
+                </button>
               </div>
 
             </div>
